@@ -1,0 +1,338 @@
+let svgChunk = `<svg
+xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:cc="http://creativecommons.org/ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:ns1="http://sozi.baierouge.fr"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+id="Calque_1"
+enable-background="new 0 0 538.473 388.481"
+sodipodi:docname="colibri.svg"
+xml:space="preserve"
+viewBox="0 0 538.473 388.481"
+version="1.1"
+y="0px"
+x="0px"
+inkscape:version="0.48.1 "
+><sodipodi:namedview
+  id="namedview90"
+  bordercolor="#666666"
+  inkscape:pageshadow="2"
+  guidetolerance="10"
+  pagecolor="#ffffff"
+  gridtolerance="10"
+  inkscape:window-maximized="1"
+  inkscape:zoom="0.74907141"
+  objecttolerance="10"
+  borderopacity="1"
+  inkscape:current-layer="Calque_1"
+  inkscape:cx="269.23651"
+  inkscape:cy="194.24049"
+  inkscape:window-y="-8"
+  inkscape:window-x="-8"
+  inkscape:window-width="1280"
+  showgrid="false"
+  inkscape:pageopacity="0"
+  inkscape:window-height="716"
+/>
+<g
+  id="g3"
+>
+<linearGradient
+    id="SVGID_1_"
+    y2="283.27"
+    gradientUnits="userSpaceOnUse"
+    x2="570.67"
+    y1="20.135"
+    x1="247.87"
+  >
+<stop
+      id="stop6"
+      style="stop-color:#73953D"
+      offset=".1838"
+  />
+<stop
+      id="stop8"
+      style="stop-color:#719340"
+      offset=".1984"
+  />
+<stop
+      id="stop10"
+      style="stop-color:#6D8D4B"
+      offset=".211"
+  />
+<stop
+      id="stop12"
+      style="stop-color:#64825D"
+      offset=".2227"
+  />
+<stop
+      id="stop14"
+      style="stop-color:#597476"
+      offset=".234"
+  />
+<stop
+      id="stop16"
+      style="stop-color:#4A6196"
+      offset=".245"
+  />
+<stop
+      id="stop18"
+      style="stop-color:#384ABC"
+      offset=".2555"
+  />
+<stop
+      id="stop20"
+      style="stop-color:#303FCF"
+      offset=".2599"
+  />
+<stop
+      id="stop22"
+      style="stop-color:#2F42CA"
+      offset=".2913"
+  />
+<stop
+      id="stop24"
+      style="stop-color:#2D49BD"
+      offset=".3268"
+  />
+<stop
+      id="stop26"
+      style="stop-color:#2A55A6"
+      offset=".3642"
+  />
+<stop
+      id="stop28"
+      style="stop-color:#256786"
+      offset=".4031"
+  />
+<stop
+      id="stop30"
+      style="stop-color:#207D5E"
+      offset=".443"
+  />
+<stop
+      id="stop32"
+      style="stop-color:#18982C"
+      offset=".4833"
+  />
+<stop
+      id="stop34"
+      style="stop-color:#12B000"
+      offset=".5152"
+  />
+<stop
+      id="stop36"
+      style="stop-color:#13AE01"
+      offset=".5841"
+  />
+<stop
+      id="stop38"
+      style="stop-color:#16A704"
+      offset=".6089"
+  />
+<stop
+      id="stop40"
+      style="stop-color:#1D9C0A"
+      offset=".6266"
+  />
+<stop
+      id="stop42"
+      style="stop-color:#258B12"
+      offset=".6409"
+  />
+<stop
+      id="stop44"
+      style="stop-color:#31751C"
+      offset=".6531"
+  />
+<stop
+      id="stop46"
+      style="stop-color:#3E5A29"
+      offset=".6638"
+  />
+<stop
+      id="stop48"
+      style="stop-color:#4E3C37"
+      offset=".673"
+  />
+</linearGradient
+>
+<path
+    id="path50"
+    d="m215.2 102.97s10.257 15.78 31.56 29.981 21.303 14.202 21.303 14.202 109.67-106.51 231.17-131.76 37.082-12.624 14.201 16.569-167.27 172-178.31 175.16 22.881 22.881 52.074 81.266 71.797 88.367 71.797 88.367l-23.699-13.717 17.885 17.357-85.135-74.168s-84.243-28.932-121.59-59.966c-37.348-31.035-42.607-64.174-55.758-73.117-13.151-8.942-34.717-25.775-47.868-42.607-13.15-16.833-38.399-19.278-38.399-19.278l10.784-8.284s10.783 0.209 32.35-13.994c21.58-14.199 53.75-9.357 67.65 13.994z"
+    fill="url(#SVGID_1_)"
+/>
+<path
+    id="path52"
+    opacity=".59"
+    d="m137.88 111.26s11.526-3.92 15.208-7.839 12.888-12.598 25.775 2.657-1.005 14.729-20.491 10.784c-19.49-3.95-20.49-5.6-20.49-5.6z"
+    fill="#3E3D40"
+/>
+<path
+    id="path54"
+    d="m13.215 119.54s41.458-16.569 102-16.569c0 0 10.83 5.522 22.665 8.284 0 0.01-97.05-1.97-124.66 8.29z"
+    fill="#1A171B"
+/>
+<ellipse
+    id="ellipse56"
+    rx="8.201"
+    ry="7.456"
+    cy="107.65"
+    cx="163.6"
+    fill="#1A171B"
+/>
+<g
+    id="g58"
+    stroke="#000000"
+    stroke-width=".25"
+  >
+<path
+      id="path60"
+      d="m335.65 207.06l-22.465-24.459c31.977-23.67 57.969-89.945 57.969-89.945 22.092-33.138-11.313-16.199-11.313-16.199s83.111-51.654 124.48-57.467c34.664-4.872 60.125-20.627 29.639 12.916-30.49 33.54-153.86 162.54-178.31 175.16z"
+      fill="#5D4D47"
+  />
+<g
+      id="g62"
+      opacity=".58"
+      fill="none"
+    >
+  <path
+        id="path64"
+        d="m368.92 72.523c48.293-24.133 100.37-37.283 152.49-49.195"
+    />
+  <path
+        id="path66"
+        d="m507.17 39.291c-43.143 11.73-85.75 23.829-129.04 35.82"
+    />
+  <path
+        id="path68"
+        d="m484.26 63.684c-36.535 6.8-72.83 13.112-109.33 19.938"
+    />
+  <path
+        id="path70"
+        d="m465.86 82.933c-31.289 1.753-61.797 3.857-92.592 5.937"
+    />
+  <path
+        id="path72"
+        d="m368.8 102.35c1.596-0.303 2.648 1.801 4.227 1.801 3.682 0 6.838 1.578 10.52 2.104 16.832 2.63 32.613 7.364 49.488 10.446"
+    />
+  <path
+        id="path74"
+        d="m449.23 100.14c-26.756-0.721-53.584-2.299-80.623-3.735"
+    />
+  <path
+        id="path76"
+        d="m359.91 117.1c14.693 8.61 28.369 18.605 42.799 27.621"
+    />
+  <path
+        id="path78"
+        d="m420.38 129.5c-19.086-6.645-38.094-13.503-57.135-20.272"
+    />
+  <path
+        id="path80"
+        d="m349.19 140.47c10.158 9.966 19.627 19.96 29.93 29.585"
+    />
+  <path
+        id="path82"
+        d="m391.04 157.8c-12.98-8.687-25.963-17.374-38.943-26.061"
+    />
+  <path
+        id="path84"
+        d="m333.07 162.13c6.486 7.703 12.975 15.405 19.461 23.107 1.477 1.755 2.955 3.51 4.434 5.265"
+    />
+  <path
+        id="path86"
+        d="m365.63 181.81c-9.584-8.626-19.113-17.315-28.645-26"
+    />
+  <path
+        id="path88"
+        d="m325.9 172.05c7.678 7.847 16.096 16.263 23.539 24.426"
+    />
+</g
+  >
+</g
+>
+</g
+>
+<metadata
+><rdf:RDF
+  ><cc:Work
+    ><dc:format
+      >image/svg+xml</dc:format
+    ><dc:type
+        rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+    /><cc:license
+        rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+    /><dc:publisher
+      ><cc:Agent
+          rdf:about="http://openclipart.org/"
+        ><dc:title
+          >Openclipart</dc:title
+        ></cc:Agent
+      ></dc:publisher
+    ><dc:title
+      >humming-bird</dc:title
+    ><dc:date
+      >2012-09-05T15:34:43</dc:date
+    ><dc:description
+      >Un jour, il y eut un immense incendie de forÃªt. Les animaux observaient le dÃ©sastre, terrifiÃ©s et impuissants. Seul le petit colibri sâ€™activait, allant chercher quelques gouttes avec son bec pour les jeter sur le feu. Le tatou, agacÃ©, lui dit : \nÂ« Tu es fou! Ce nâ€™est pas avec ces gouttes dâ€™eau que tu vas Ã©teindre le feu ! Â» Et le colibri lui rÃ©pondit : Â« Je le sais, mais je fais ma part. Â»\nLÃ©gende amÃ©rindienne\n----------------------------------------------------------\nOne day there was a huge forest fire. The animals watched the disaster, terrified and helpless. Only the little hummingbird was busy, fetching a few drops with its beak to throw on the fire. Armadillo, annoyed, said:\n"You're crazy! It is not with these drops of water that you will put out the fire! "And the hummingbird replied," I know, but I do my part. '\nNative American legend</dc:description
+    ><dc:source
+      >https://openclipart.org/detail/172157/humming-bird-by-presquesage-172157</dc:source
+    ><dc:creator
+      ><cc:Agent
+        ><dc:title
+          >presquesage</dc:title
+        ></cc:Agent
+      ></dc:creator
+    ><dc:subject
+      ><rdf:Bag
+        ><rdf:li
+          >bird</rdf:li
+        ><rdf:li
+          >colibri</rdf:li
+        ><rdf:li
+          >humming-bird</rdf:li
+        ><rdf:li
+          >hummingbird</rdf:li
+        ><rdf:li
+          >oiseau</rdf:li
+        ><rdf:li
+          >oiseau mouche</rdf:li
+        ></rdf:Bag
+      ></dc:subject
+    ></cc:Work
+  ><cc:License
+      rdf:about="http://creativecommons.org/licenses/publicdomain/"
+    ><cc:permits
+        rdf:resource="http://creativecommons.org/ns#Reproduction"
+    /><cc:permits
+        rdf:resource="http://creativecommons.org/ns#Distribution"
+    /><cc:permits
+        rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+    /></cc:License
+  ></rdf:RDF
+></metadata
+></svg
+>
+`;
+
+function createMarkup() { return { __html: svgChunk }; };
+
+export default () => (
+  <React.Fragment>
+    <section id="svg_container">
+      <div id="parrotBag" dangerouslySetInnerHTML={createMarkup()} />
+    </section>
+    <style>
+      {`
+    section#svg_container svg {
+      width: calc(30vw + 10pt);
+    }
+    `}
+    </style>
+  </React.Fragment>
+);

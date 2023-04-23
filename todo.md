@@ -1,0 +1,52 @@
+# To Do list for [Alta Redwood Store codebase](https://bitbucket.org/pacificpelican/okconcept0/src/master/)
+
+- redo login and registration forms with more routing
+- redo logout link with Link tag
+- √ pages: no titles (use Head or Helmet or something)
+- add contact form
+- √ terms of use / conditions
+- √ add privacy policy
+- the cart should only allow available items to be added (not too many)
+- product perma-link pages loaded cold just show nothing now
+- use a library to generate UUIDs (or some other considered abstraction like fake-MongoDB-IDs) to be used as locators
+- totals generated on /checkout need a JavaScript math audit: probably use methods like in the dm calculator instead of sign operators
+- create addProperty to go with object line editor Edit.js and friends View.js and Delete.js (need to add a way in /admin to add the hidden:true prop)
+- `transactionObjectJSON` should be cross-checked before charging against Stripe
+- allow front page to have productID param (or attribute) which can filter the page down to permanently-link level
+- store appears to be overly permissive in showing product data (e.g. hidden and out-of-stock products) [but not admin-side inventory or order data] if a logged-in but not admin user visits /admin
+- include more info in user registration including √ email, phone number
+- create automated tests: for 
+	- shopping cart
+	- server functionality
+	- API
+
+- √ user should be blocked from making purchase if `inventory available?: false` on /checkout
+- √ the parameter val for edit should probably be url-encoded
+- √ store front page looks for hidden:'yes' property and show items if not
+- √ make some sort of link between user account and order info (server side)
+- √ delete cart data when purchase is complete
+- √ display order data for logged-in users in /profile
+- √ after purchase table:
+	- orders
+		- Stripe transaction ID
+		- purchase amounts
+			- subtotal
+			- shipping
+			- tax
+			- total
+		- username (or userID) in system (if any)
+		- cart data
+		- shipping address
+		- fulfilled?
+    - shipped?
+- √ `/cartpage` and `/admin orders section` both need to make use of the (already-written) getProductNameForId algorithm [√ name of item added to cart data]
+- √ attach product name to initial cart data (along w/product ID, quantity)
+- √ inventory: we know both amounts, we know product ID; should create a new DB entry that conforms with the schema in `store_inventory` (after charges)
+- √ DOM storage could be used to persist cart data
+- √ /updateorder/locator/:locator/status/:status should require admin as well as logged-in
+- √ hide /checkout (rteurn null for page) unless user has something in their cart
+	- √ hide the credit card UI if `inventory available?: false` on /checkout
+- √ the /api/1/getstoreitem/:item throws an unhandled exception if the product locator doesn't exist in the database; needs error handling on the server side
+- √ totals should be rounded on /checkout so there aren't fractional cents (already gets done by transaction time, page should reflect that)
+- √ don't let people buy nothing for $0
+- √ mobile friendly/responsive
