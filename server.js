@@ -519,6 +519,10 @@ app.prepare().then(() => {
           throw err;
         }
         console.log("looking up data for table " + `users_collection`);
+        //  console.log("looking up data for table " + `users_collection` + " by " + userLogin);
+        // look up the user's data
+        db
+        
         db.collection(`users_collection`)
           .find()
           .toArray(function (err, result) {
@@ -611,14 +615,21 @@ app.prepare().then(() => {
             throw err;
           }
           console.log("looking up data for table " + `store_items`);
-          db.collection(`store_items`)
+
+          //  look up the store items with a MongoDB query
+          db.collection('store_items')
             .find()
+            .limit(parseInt(req.params.limit))
             .toArray(function (err, result) {
-            
-              let trimmedResult = result.reverse().slice(0, Number(req.params.limit));
-            
-              res.send(trimmedResult);
-            });
+              console.log(
+                "result of query for: " + `store_items` + " by " + userLogin
+              );
+              console.log(result);
+              res.send(result);
+            } );
+
+
+        
         });
       }
     });
@@ -754,6 +765,7 @@ app.prepare().then(() => {
         }
 
         db.collection("store_items")
+          // get store items
           .find()
           .toArray(function (err, result) {
             console.log(

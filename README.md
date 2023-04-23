@@ -9,11 +9,11 @@
 
 # QuickStart
 
-`yarn run install`
+`npm install`
 
-`brew services start mongodb`
+`brew services start mongodb-community@6.0`
 
-`yarn run dev`
+`npm run dev`
 
 *Includes:*
 - login and registration (optional for purchase)
