@@ -309,7 +309,7 @@ let subscriptions_collection = "okconceptdevcollection";
 
 var MongoClient = require("mongodb").MongoClient;
 
-var db = require('./db');
+var db = require('./db'); //  this requires a directory with multiple files (index, store, users)
 
 function getHash(src) {
   const hash = crypto
@@ -367,10 +367,17 @@ createNewItem = function (table, newItem, cb) {
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new Strategy(
   function (username, password, cb) {
+    console.log("running passport strategy for " + username + " and " + password);
     db.users.findByUsername(username, function (err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (user.password !== getHash(password)) { return cb(null, false); }
+      if (err) { 
+        console.log("error in passport strategy : " + err);
+        return cb(err); }
+      if (!user) { 
+        console.log("no user found");
+        return cb(null, false); }
+      if (user.password !== getHash(password)) { 
+        console.error("passwords don't match");
+        return cb(null, false); }
       return cb(null, user);
     });
   }));
@@ -464,10 +471,13 @@ app.prepare().then(() => {
       let decodedObject = decodeURIComponent(req.params.registrationObject);
       console.log(decodedObject);
 
+      // create a new user with the username and password from the decoded object
+
       db.users.createNewUser(decodedObject.username, decodedObject.password, decodedObject.email, function (err, user) {
         if (err) {
           console.log(err);
           msg = err
+          
           res.redirect('/error');
         }
         else if (!user) {
