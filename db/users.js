@@ -26,22 +26,20 @@ let usersCollection = [];
 const crypto = require('crypto');
 
 function get_user_data() {
-  //  get the data from users_collection and store it in usersCollection as an array
+  // Connect to the database, get the users collection, and store it in the usersCollection variable
   MongoClient.connect(mongoAddress, function (err, db) {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-    db.collection(users_collection)
-      .find()
-      .toArray(function (err, result) {
-        usersCollection = result;
-        if (err) {
-          console.log(err);
-        }
-      });
+    if (err) throw err;
+    var dbo = db.db(mongoName);
+    dbo.collection(users_collection).find({}).toArray(function (err, result) {
+      if (err) throw err;
+      usersCollection = result;
+      console.log("usersCollection at source");
+      console.log(usersCollection);
+      db.close();
+    });
   }
   );
+  
 
 }
 
@@ -56,6 +54,7 @@ function getHash(src) {
 }
 
 const records = usersCollection;
+console.log("records - usersCollection collection");
 console.log(usersCollection);
 
 exports.findById = function (id, cb) {
@@ -92,17 +91,43 @@ exports.findByUsername = function (username, cb) {
   );
 }
 
-exports.createNewUser = function (username, password, email, cb) {
-  console.log("running createNewUser");
-  //  create new user based on the username, password, and email and this object: var newUser = {"id": newId,"username": username,"password": getHash(password),"email": email,"locator": newId * locatorScale}; 
-  //  return cb(null, newUser);
+// Function to create a new user
+exports.createNewUser = async function (username, password, email, cb) {
+  console.log('running createNewUser');
 
-  process.nextTick(function () {
+  // Connect to the database
+  const client = new MongoClient(mongoUrl);
+
+  try {
+    await client.connect();
+    console.log('Connected to the database');
+
+    const db = client.db(mongoName);
+    const usersCollection = db.collection('users_collection');
+
+    // Check if the user already exists
+    const existingUser = await usersCollection.findOne({ username });
+    if (existingUser) {
+      console.log('User already exists');
+      return cb(new Error('User already exists'), null);
+    }
+
+    // Create a new user based on this object: var newUser = { "id": newId, "username": username, "password": getHash(password), "email": email, "locator": newId * locatorScale };
     var newId = usersCollection.length + 1;
+    console.log("newId: " + newId);
     var newUser = { "id": newId, "username": username, "password": getHash(password), "email": email, "locator": newId * locatorScale };
-    usersCollection.push(newUser);
+
+    // Insert the new user into the collection
+    const result = await usersCollection.insertOne(newUser);
+    console.log('User created successfully');
     return cb(null, newUser);
+
+
+  } catch (err) {
+    console.error('Failed to create a new user', err);
+    return cb(err, null);
+  } finally {
+    // Close the connection after completing the operation
+    client.close();
   }
-  );
-    
-}
+};
