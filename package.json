@@ -1,6 +1,6 @@
 {
   "name": "alta-redwood-store-code",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "scripts": {
     "dev": "node --openssl-legacy-provider server.js",
     "build": "next build",
@@ -23,7 +23,7 @@
     "@material-ui/core": "^4.6.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^26.6.3",
-    "babel-preset-env": "^1.7.0",
+    "babel-preset-env":"^1.7.0",
     "babel-preset-react": "^6.24.1",
     "body-parser": "~1.19.0",
     "boring-avatars": "~1.5.8",

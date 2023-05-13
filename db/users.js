@@ -24,6 +24,7 @@ var MongoClient = require("mongodb").MongoClient;
 let usersCollection = [];
 
 const crypto = require('crypto');
+const { users } = require(".");
 
 async function get_user_data() {
   const client = await MongoClient.connect(mongoAddress, {
@@ -71,31 +72,38 @@ exports.findById = function (id, cb) {
 
 }
 
-exports.findByUsername = function (username, cb) {
+exports.findByUsername = async function (username, cb) {
   console.log("\x1b[33m running findByUsername for username \x1b[0m" + username);
-  usersCollection = get_user_data();
+  usersCollection = await get_user_data();
   console.log("usersCollection at source");
   console.log(usersCollection);
   //  check if username exists
   //  if username exists, return the user record in this format: var record = Object.assign({ "id": Number(i + 1) }, usersCollection[i]);
   // if username does not exist, return null in this way: return cb(null, null);
-  
   process.nextTick(function () {
     for (var i = 0, len = usersCollection.length; i < len; i++) {
-      var record = Object.assign({ "id": Number(i + 1) }, usersCollection[i]);
-      if (record.username === username) {
-        console.log("Found Username");
+      if (usersCollection[i].username === username) {
+        var record = Object.assign({ "id": Number(i + 1) }, usersCollection[i]);
         return cb(null, record);
       }
     }
-    cb(null, null);
-  }
+    return cb(null, null);
+  } 
   );
+
+
 }
 
 // Function to create a new user
 exports.createNewUser = async function (username, password, email, cb) {
-  console.log('running createNewUser');
+  let usersCollection = await get_user_data();
+  console.log('\x1b[33m running createNewUser \x1b[0m');
+  console.log("usersCollection at source");
+  console.log(usersCollection);
+  console.log("usersCollection.length");
+  console.log(usersCollection.length);
+
+  let innerLength = usersCollection.length;
 
   // Connect to the database
   const client = new MongoClient(mongoUrl);
@@ -115,7 +123,7 @@ exports.createNewUser = async function (username, password, email, cb) {
     }
 
     // Create a new user based on this object: var newUser = { "id": newId, "username": username, "password": getHash(password), "email": email, "locator": newId * locatorScale };
-    var newId = usersCollection.length + 1;
+    var newId = Number(innerLength) + 1;
     console.log("newId: " + newId);
     //  if newId is NaN, set it to 1
     if (isNaN(newId)) {
