@@ -33,7 +33,8 @@ if (process.env.NODE_ENV !== "production") {
   keySecret = process.env.SECRET_KEY;
 }
 
-console.log('\x1b[33m Welcome to the app! \x1b[0m');
+console.log('\x1b[33m Welcome to the Alta Redwood store app! \x1b[0m');
+console.log('\x1b[33m https://github.com/pacificpelican/alta-redwood-store-code/ \x1b[0m');
 
 const crypto = require('crypto');
 

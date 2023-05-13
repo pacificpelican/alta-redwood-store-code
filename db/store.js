@@ -20,42 +20,25 @@ const mongoAddress = mongoUrl + mongoName;
 
 var MongoClient = require("mongodb").MongoClient;
 
-exports.createNewStoreItem = function (newItem, cb) {
-  console.log("running createNewStoreItem");
-  process.nextTick(function () {
-    MongoClient.connect(mongoAddress, function (err, db) {
-      if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        console.log("about to add NEW STORE ITEM");
+exports.createNewStoreItem = async function write_to_db(newItem) {
+  console.log("\x1b[35m running createNewStoreItem in store.js \x1b[0m");
+  console.log(newItem);
+  // add the newItem to the database collection store_items
+  const client = await MongoClient.connect(mongoAddress, {});
 
-        console.log(typeof newItem);
+  const db = client.db(mongoName);
+  const collection = db.collection('store_items');
 
-        let serverObject = JSON.parse(newItem);
+  let serverObject = JSON.parse(newItem);
 
-        let dbObject = Object.assign(serverObject, {
-          locator: Number(Date.now()) + Math.floor(Math.random() * locatorScale + 1),
-          created_at_time: Date.now(),
-          hidden: `no`
-        });
-
-        console.log("tuple to be saved [store]");
-
-        try {
-          //  add this account to the database
-          db.collection(`store_items`).insertOne(dbObject);
-
-        }
-        catch (err) {
-          console.log("error in store item");
-          return cb(new Error(err));
-        }
-
-        return cb(null, newItem);
-      }
-    });
-  });
+  try {
+    const result = await collection.insertOne(serverObject);
+    console.log(`New item added with ID: ${result.insertedId}`);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    client.close();
+  }
 }
 
 exports.createNewItem = function (table, newItem, cb) {
