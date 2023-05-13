@@ -527,6 +527,7 @@ app.prepare().then(() => {
 
   server.get('/getprofile',
     require('connect-ensure-login').ensureLoggedIn(), (req, res) => {
+      console.log("\x1b[32m getprofile route \x1b[0m - logged in");
       MongoClient.connect(mongoAddress, function (err, db) {
         if (err) {
           console.log(err);
@@ -535,7 +536,7 @@ app.prepare().then(() => {
         console.log("looking up data for table " + `users_collection`);
         //  console.log("looking up data for table " + `users_collection` + " by " + userLogin);
         // look up the user's data
-        db
+   
         
         db.collection(`users_collection`)
           .find()

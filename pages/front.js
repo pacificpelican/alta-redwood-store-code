@@ -145,14 +145,9 @@ function Front() {
   if (items.length === 0) return (<>
     <Menu />
     <div id="loading">
-      {/* <span>Don't see any products?  Try <span id="reloadNow"><a href="#" onClick={reloadonce}>re-loading.... </a></span></span> */}
-      <Loader
-        type="Watch"
-        color="#de833e"
-        height={300}
-        width={500}
-        timeout={15000} //15 secs
-      />
+     <main id="no-items">
+      <h1>no store items found</h1>
+    </main>
     </div>
     <Footer />
   </>)
