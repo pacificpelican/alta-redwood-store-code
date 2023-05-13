@@ -5,6 +5,7 @@
 # ALL RIGHTS RESERVED
 
 - an e-commerce web site
+- runs on NodeJS and MongoDB
 ---
 
 # QuickStart
@@ -19,7 +20,8 @@
 - login and registration (optional for purchase)
 - product creation and management
 - inventory management and automatic decrement on purchase
-- user profile with previous purchases
+- user profile with previous logged-in purchases
+- admin panel
 ---
 ### Built with OkConcept0 and modern web technologies
 
@@ -27,11 +29,6 @@ The Store is powered by [okconcept0](https://okconcept0.pacificio.com) which is 
 ---
 ![parrot](./parrot-graphic.png "parrot graphic")
 ---
-
-# Powered by NextJS [Custom server and routing](https://github.com/zeit/next.js#custom-server-and-routing).
-
-*Because the Next.js server is just a node.js module you can combine it with any other part of the node.js ecosystem. in this case we are using express to build a custom router on top of Next.*
-
 
 ## Testing
 

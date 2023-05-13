@@ -513,11 +513,12 @@ app.prepare().then(() => {
     }
   ) //  deprecated in favor of /profile and /getprofile
 
-  server.get('/logout',
-    function (req, res) {
-      req.logout();
+  server.get('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
       res.redirect('/');
     });
+  });
 
   server.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
