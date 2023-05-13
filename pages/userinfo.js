@@ -8,8 +8,7 @@ export default class extends Component {
   runDBlookup(dbOBJ, db = 'seisdb') {
     let that = this;
     let dest = "/getprofile"
-    console.log("FETCH REQUEST URL:")
-    console.log(dest);
+    console.log("FETCH REQUEST URL:" + dest);
     fetch(dest, {})
       .then(function (response) {
         if (response.ok) {
@@ -32,6 +31,7 @@ export default class extends Component {
         return response.blob();
       })
       .then(function (myReturn) {
+        console.log("myReturn from /getprofile");
         console.log(myReturn);
         that.setState({ username: myReturn[0].username});
       });
@@ -42,7 +42,9 @@ export default class extends Component {
   }
 
   render (props) {
-    console.log(this.props);
+    //  console.log(this.props);
+    console.log('this.state');
+    console.log(this.state);
     if ((this.state.username !== '') && (this.state.username !== 'NOT LOGGED IN')) {
       return(<React.Fragment><div style={theStyle} id="logged"><a href="/profile">Logged In</a> as {this.state.username}</div></React.Fragment>);
     }

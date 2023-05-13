@@ -528,28 +528,8 @@ app.prepare().then(() => {
   server.get('/getprofile',
     require('connect-ensure-login').ensureLoggedIn(), (req, res) => {
       console.log("\x1b[32m getprofile route \x1b[0m - logged in");
-      MongoClient.connect(mongoAddress, function (err, db) {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        console.log("looking up data for table " + `users_collection`);
-        //  console.log("looking up data for table " + `users_collection` + " by " + userLogin);
-        // look up the user's data
-   
-        
-        db.collection(`users_collection`)
-          .find()
-          .toArray(function (err, result) {
-            // console.log(
-            //   "result of query for: " + `users_collection` + " by " + userLogin
-            // );
-            //  filter out only the user's data
-            let finalResult = result.filter(word => word.username === userLogin);
-            //  console.log(finalResult);
-            res.send(finalResult);
-          });
-      });
+      res.send(Object.assign({}, [{ "username": userLogin }]));
+
     }); //  This route returns JSON info about the user who is logged in (userLogin)
 
   server.get('/getorders',
