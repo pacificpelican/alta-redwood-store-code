@@ -31,9 +31,11 @@ exports.createNewStoreItem = async function write_to_db(newItem) {
 
   let serverObject = JSON.parse(newItem);
 
+  let intermediateObject = Object.assign({locator: Number(Date.now()) + Math.floor(Math.random() * locatorScale + 1), created_at_time: Date.now()}, serverObject);
+
   try {
-    const result = await collection.insertOne(serverObject);
-    console.log(`New item added with ID: ${result.insertedId}`);
+    const result = await collection.insertOne(intermediateObject);
+    console.log(`New item added with ID: ${result.insertedId} and locator ${intermediateObject.locator}`);
   } catch (error) {
     console.log(error);
   } finally {
