@@ -42,7 +42,7 @@ The Store was originally based on [OkConcept0](https://okconcept0.pacificio.com)
 
 ## Setup
 
-- the []`env.local`](env.local) file at the root of the project must be updated with site-specific info
+- the [`env.local`](./env.local) file at the root of the project must be updated with site-specific info
   - the name of the MongoDB database
   - the Stripe keys for checkout
   - the usernames of admin users

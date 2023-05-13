@@ -603,33 +603,27 @@ app.prepare().then(() => {
     }
   });
 
-  server.get("/api/1/getstoreitems/limit/:limit",
-    require('connect-ensure-login').ensureLoggedIn(), (req, res) => {
-      if (isUserAdmin()) {
-        MongoClient.connect(mongoAddress, function (err, db) {
-          if (err) {
-            console.log(err);
-            throw err;
-          }
-          console.log("looking up data for table " + `store_items`);
-
-          //  look up the store items with a MongoDB query
-          db.collection('store_items')
-            .find()
-            .limit(parseInt(req.params.limit))
-            .toArray(function (err, result) {
-              console.log(
-                "result of query for: " + `store_items` + " by " + userLogin
-              );
-              console.log(result);
-              res.send(result);
-            } );
-
-
-        
-        });
+  server.get('/api/1/getstoreitems/limit/:limit', require('connect-ensure-login').ensureLoggedIn(), async (req, res) => {
+    if (isUserAdmin()) {
+      try {
+        const client = await MongoClient.connect(mongoAddress, { useNewUrlParser: true, useUnifiedTopology: true });
+        const db = client.db(mongoName);
+        const collection = db.collection('store_items');
+  
+        const result = await collection.find().limit(parseInt(req.params.limit)).toArray();
+  
+        console.log(`Result of query for 'store_items' by ${userLogin}:`, result);
+        res.json(result);
+  
+        client.close();
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
       }
-    });
+    } else {
+      res.status(401).send('Unauthorized');
+    }
+  });
 
   server.post('/create/store-item/:storeItemObject',
     require('connect-ensure-login').ensureLoggedIn(), //  should also be an admin though
