@@ -25,22 +25,21 @@ let usersCollection = [];
 
 const crypto = require('crypto');
 
-function get_user_data() {
-  // Connect to the database, get the users collection, and store it in the usersCollection variable
-  MongoClient.connect(mongoAddress, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db(mongoName);
-    dbo.collection(users_collection).find({}).toArray(function (err, result) {
-      if (err) throw err;
-      usersCollection = result;
-      console.log("usersCollection at source");
-      console.log(usersCollection);
-      db.close();
-    });
-  }
-  );
-  
+async function get_user_data() {
+  const client = await MongoClient.connect(mongoAddress, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
+  const db = client.db(mongoName);
+  const usersCollection = await db.collection('users_collection').find({}).toArray();
+
+  console.log("usersCollection at source");
+  console.log(usersCollection);
+
+  client.close();
+
+  return usersCollection;
 }
 
 get_user_data();
@@ -73,7 +72,10 @@ exports.findById = function (id, cb) {
 }
 
 exports.findByUsername = function (username, cb) {
-  console.log("running findByUsername for username " + username);
+  console.log("\x1b[33m running findByUsername for username \x1b[0m" + username);
+  usersCollection = get_user_data();
+  console.log("usersCollection at source");
+  console.log(usersCollection);
   //  check if username exists
   //  if username exists, return the user record in this format: var record = Object.assign({ "id": Number(i + 1) }, usersCollection[i]);
   // if username does not exist, return null in this way: return cb(null, null);
@@ -115,7 +117,12 @@ exports.createNewUser = async function (username, password, email, cb) {
     // Create a new user based on this object: var newUser = { "id": newId, "username": username, "password": getHash(password), "email": email, "locator": newId * locatorScale };
     var newId = usersCollection.length + 1;
     console.log("newId: " + newId);
-    var newUser = { "id": newId, "username": username, "password": getHash(password), "email": email, "locator": newId * locatorScale };
+    //  if newId is NaN, set it to 1
+    if (isNaN(newId)) {
+      newId = 1;
+    }
+
+    var newUser = { "id": newId, "username": username, "password": getHash(password), "email": email, "locator": Number(Date.now()) + Math.floor(Math.random() * locatorScale + 1) };
 
     // Insert the new user into the collection
     const result = await usersCollection.insertOne(newUser);
