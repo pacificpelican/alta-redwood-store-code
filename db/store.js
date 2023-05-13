@@ -6,13 +6,11 @@ let locatorScale = parseInt(1000000000000);
 let mongoName;
 
 if (process.env.NODE_ENV !== "production") {
-  //  endpoint = process.env.ALPACA_PAPER_DEV_API_ENDPOINT;
   mongoUrl = "mongodb://localhost:27017/"; //  dev database server
   mongoName = process.env.DEV_MONGO;
-  keySecret = "sk_test_ff2cTSQQUXKvuGBfxd7S6r8H";
+  keySecret = process.env.TEST_SECRET_KEY;
 
 } else {
-  //  endpoint = process.env.ALPACA_API_ENDPOINT;
   mongoUrl = process.env.MONGODB_URL; //  production database server
   mongoName = process.env.MONGO_NAME || '';
   keySecret = process.env.SECRET_KEY;

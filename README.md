@@ -5,7 +5,8 @@
 # ALL RIGHTS RESERVED
 
 - an e-commerce web site
-- runs on NodeJS and MongoDB
+- runs on [NodeJS](https://nodejs.org/en) and MongoDB
+- uses [Passport](https://www.passportjs.org/) for auth
 ---
 
 # QuickStart
