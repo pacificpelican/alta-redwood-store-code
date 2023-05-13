@@ -35,8 +35,8 @@ async function get_user_data() {
   const db = client.db(mongoName);
   const usersCollection = await db.collection('users_collection').find({}).toArray();
 
-  console.log("usersCollection at source");
-  console.log(usersCollection);
+  // console.log("usersCollection at source");
+  // console.log(usersCollection);
 
   client.close();
 
@@ -53,13 +53,16 @@ function getHash(src) {
   return hash;
 }
 
-const records = usersCollection;
+let records = usersCollection;
 console.log("records - usersCollection collection");
 console.log(usersCollection);
 
-exports.findById = function (id, cb) {
+exports.findById = async function (id, cb) {
   //  check if id exists, if so return cb(null, record); otherwise return cb(new Error('User ' + id + ' does not exist'));
-  console.log("running findById for id " + id);
+  console.log("\x1b[33m running findById \x1b[0m for id " + id);
+  records = await get_user_data();
+  console.log("records.length");
+  console.log(records.length);
   process.nextTick(function () {
     var idx = id - 1;
     if (records[idx]) {
@@ -75,8 +78,8 @@ exports.findById = function (id, cb) {
 exports.findByUsername = async function (username, cb) {
   console.log("\x1b[33m running findByUsername for username \x1b[0m" + username);
   usersCollection = await get_user_data();
-  console.log("usersCollection at source");
-  console.log(usersCollection);
+  console.log("usersCollection.length at source");
+  console.log(usersCollection.length);
   //  check if username exists
   //  if username exists, return the user record in this format: var record = Object.assign({ "id": Number(i + 1) }, usersCollection[i]);
   // if username does not exist, return null in this way: return cb(null, null);
@@ -98,8 +101,8 @@ exports.findByUsername = async function (username, cb) {
 exports.createNewUser = async function (username, password, email, cb) {
   let usersCollection = await get_user_data();
   console.log('\x1b[33m running createNewUser \x1b[0m');
-  console.log("usersCollection at source");
-  console.log(usersCollection);
+  // console.log("usersCollection at source");
+  // console.log(usersCollection);
   console.log("usersCollection.length");
   console.log(usersCollection.length);
 

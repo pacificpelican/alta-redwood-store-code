@@ -369,7 +369,7 @@ createNewItem = function (table, newItem, cb) {
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new Strategy(
   function (username, password, cb) {
-    console.log("running passport strategy for " + username + " and " + password);
+    console.log("\x1b[34m running passport strategy \x1b[0m for " + username + " and " + password);
     db.users.findByUsername(username, function (err, user) {
       if (err) { 
         console.log("error in passport strategy : " + err);
@@ -380,7 +380,9 @@ passport.use(new Strategy(
       if (user.password !== getHash(password)) { 
         console.error("passwords don't match");
         return cb(null, false); }
-      return cb(null, user);
+      else
+        console.log("\x1b[34m passwords match \x1b[0m");
+        return cb(null, user);
     });
   }));
 
@@ -391,14 +393,14 @@ passport.use(new Strategy(
 // typical implementation of this is as simple as supplying the user ID when
 // serializing, and querying the user record by ID from the database when
 // deserializing.
-passport.serializeUser(function (user, cb) {
+passport.serializeUser(async function (user, cb) {
   console.log("session to start with " + user.id);
   userLogin = user.username;
   cb(null, user.id);
 });
 
-passport.deserializeUser(function (id, cb) {
-  db.users.findById(id, function (err, user) {
+passport.deserializeUser(async function (id, cb) {
+  await db.users.findById(id, function (err, user) {
     if (err) { return cb(err); }
     cb(null, user);
   });
