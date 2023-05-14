@@ -43,40 +43,36 @@ exports.createNewStoreItem = async function write_to_db(newItem) {
   }
 }
 
-exports.createNewItem = function (table, newItem, cb) {
-  console.log("running createNewItem");
-  process.nextTick(function () {
-    MongoClient.connect(mongoAddress, function (err, db) {
-      if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        console.log("about to add NEW STORE ITEM");
+exports.createNewItem = async function (table, newItem, cb) {
+  console.log("\x1b[94m running createNewItem \x1b[0m");
+  console.log(newItem);
 
-        console.log(typeof newItem);
+  try {
+    const client = await MongoClient.connect(mongoAddress, { useNewUrlParser: true, useUnifiedTopology: true });
+    const db = client.db(mongoName);
 
-        let serverObject = JSON.parse(newItem);
+    console.log("about to add NEW STORE ITEM");
 
-        let dbObject = Object.assign(serverObject, {
-          locator: Number(Date.now()) + Math.floor(Math.random() * locatorScale + 1),
-          created_at_time: Date.now()
-        });
+    console.log(typeof newItem);
 
-        console.log("tuple to be saved [store: createNewItem]");
+    let serverObject = JSON.parse(newItem);
 
-
-        try {
-          //  add this account to the database
-          db.collection(table).insertOne(dbObject);
-
-        }
-        catch (err) {
-          console.log("error in store item");
-          return cb(new Error(err));
-        }
-
-        return cb(null, newItem);
-      }
+    let dbObject = Object.assign(serverObject, {
+      locator: Number(Date.now()) + Math.floor(Math.random() * locatorScale + 1),
+      created_at_time: Date.now()
     });
-  });
+
+    console.log("tuple to be saved [store: createNewItem]");
+
+    const result = await db.collection(table).insertOne(dbObject);
+
+    console.log(`New item added to '${table}' collection with ID: ${result.insertedId}`);
+
+    cb(null, newItem);
+
+    client.close();
+  } catch (error) {
+    console.error(error);
+    cb(new Error('Internal server error'));
+  }
 }

@@ -554,52 +554,51 @@ app.prepare().then(() => {
     }); //  This route returns JSON info about the user who is logged in (userLogin)
 
   // e.g.  http://localhost:3000/api/1/getdbdata/db/db/object/users_collection
-  server.get("/api/1/getdbdata/db/:db/object/:obj",
-    require('connect-ensure-login').ensureLoggedIn(), (req, res) => {
-      if (isUserAdmin()) {  // Admin only route
-        MongoClient.connect(mongoAddress, function (err, db) {
-          if (err) {
-            console.log(err);
-            throw err;
-          }
-          console.log("looking up data for table " + req.params.obj);
-          db.collection(req.params.obj)
-            .find()
-            .toArray(function (err, result) {
-              
-              res.send(result);
-            });
-        });
-      }
-    });
-
-  server.get("/api/1/getdbdata/db/:db/object/:obj/tuple/:tuple",
-    require('connect-ensure-login').ensureLoggedIn(), function (
-      req,
-      res
-    ) {
+  server.get('/api/1/getdbdata/db/:db/object/:obj', require('connect-ensure-login').ensureLoggedIn(), async (req, res) => {
     if (isUserAdmin()) {
-      MongoClient.connect(mongoAddress, function (err, db) {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        console.log("looking up data for tuple " + req.params.tuple);
-        db.collection(req.params.obj)
-          .find({ locator: { $eq: parseInt(req.params.tuple) } })
-          .toArray(function (err, result) {
-            console.log(
-              "result of query for: " +
-              req.params.db +
-              " | " +
-              req.params.obj +
-              " | " +
-              req.params.tuple
-            );
-            console.log(result);
-            res.send(result);
-          });
-      });
+      try {
+        const client = await MongoClient.connect(mongoAddress, {});
+        const db = client.db(mongoName);
+        const collection = db.collection(req.params.obj);
+  
+        const result = await collection.find().toArray();
+  
+        console.log(`Looking up data for table '${req.params.obj}' by ${userLogin}`);
+        console.log(result);
+  
+        res.json(result);
+  
+        client.close();
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+      }
+    } else {
+      res.status(401).send('Unauthorized');
+    }
+  });
+
+  server.get('/api/1/getdbdata/db/:db/object/:obj/tuple/:tuple', require('connect-ensure-login').ensureLoggedIn(), async (req, res) => {
+    if (isUserAdmin()) {
+      try {
+        const client = await MongoClient.connect(mongoAddress, {});
+        const db = client.db(mongoName);
+        const collection = db.collection(req.params.obj);
+  
+        const result = await collection.findOne({ locator: parseInt(req.params.tuple) });
+  
+        console.log(`Looking up data for tuple ${req.params.tuple} in '${req.params.db}' | '${req.params.obj}' collection by ${userLogin}`);
+        console.log(result);
+  
+        res.json(result);
+  
+        client.close();
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+      }
+    } else {
+      res.status(401).send('Unauthorized');
     }
   });
 
