@@ -59,7 +59,19 @@ let x = mungeInventory;
 
 console.log("PORT: " + port);
 
-function createNewOrder(stripeToken, cartObject, shipObject, transactionObject) {
+async function insertStoreOrder(dbObject0) {
+  try {
+    const client = await MongoClient.connect(mongoAddress);
+    const collection = client.db().collection('store_orders');
+    await collection.insertOne(dbObject0);
+    await client.close();
+  } catch (err) {
+    console.log("error in store orders DB entry creation: " + err.toString());
+    throw new Error(err);
+  }
+}
+
+async function createNewOrder(stripeToken, cartObject, shipObject, transactionObject) {
   let dbObject = Object.assign({}, {
     token: stripeToken,
     username: userLogin ? userLogin : 'unregistered',
@@ -74,15 +86,7 @@ function createNewOrder(stripeToken, cartObject, shipObject, transactionObject) 
     created_at_time: Date.now()
   });
 
-  MongoClient.connect(mongoAddress, function (err, db) {
-    try {
-      db.collection(`store_orders`).insertOne(dbObject0);
-    }
-    catch (err) {
-      console.log("error in store orders DB entry creation: " + err.toString());
-      return new Error(err);
-    }
-  })
+  let letsWait = await insertStoreOrder(dbObject0);
 
   if (userLogin !== '') {
     db.users.findByUsername(userLogin, function (err, user) {
@@ -792,7 +796,7 @@ app.prepare().then(() => {
     });
 
   server.post("/charge/order/:cartObject/shipping/:shippingObject/transaction/:transactionObject", async (req, res) => {
-    console.log("received /charge POST request");
+    console.log("\x1b[33m received /charge POST request \x1b[0m");
     console.log(req.body);
     console.log(req.params);
 
