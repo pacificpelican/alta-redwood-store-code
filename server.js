@@ -135,36 +135,21 @@ function sendEmail(recipient, bodyText, subjectText = 'store update') {
   })
 }
 
-function postDataWildcard(
-  db,
-  table,
-  tuple,
-  objval,
-  objkey = "description",
-  newVal = "__"
-) {
-  var someStr = decodeURIComponent(objval);
-  let val = someStr.replace(/['"]+/g, '');
+async function postDataWildcard(db, collectionName, tuple, objval, objkey = "description", newVal = "__") {
+  const someStr = decodeURIComponent(objval);
+  const val = someStr.replace(/['"]+/g, '');
+  const tupleNumber = Number(tuple);
+  const replaceVal = newVal.toString();
 
-  let tupleNumber = Number(tuple);
+  const client = await MongoClient.connect(mongoAddress);
+  const collection = client.db(mongoName).collection(collectionName);
 
-  let replaceVal = newVal.toString();
+  const result = await collection.updateOne({ [objkey]: val, locator: tupleNumber }, { $set: { [objkey]: replaceVal } });
 
-  let collectionName = table;
+  console.log("Updated the document");
+  console.log(result);
 
-  MongoClient.connect(mongoAddress, function (err, db) {
-    let collection = db.collection(`${collectionName}`);
-    let record = collection;
-
-    collection.updateOne(
-      { [objkey]: val, locator: tupleNumber },
-      { $set: { [objkey]: replaceVal } },
-      function (err, result) {
-        console.log("Updated the document");
-        console.log(err);
-      }
-    );
-  });
+  await client.close();
 }
 
 function decrementFromInventory(cartObject) {
@@ -715,6 +700,13 @@ app.prepare().then(() => {
       
       var someOtherStr = decodeURIComponent(req.params.newval);
       let newVal = someOtherStr.replace(/['"]+/g, '');
+
+      console.log("\x1b[33m seeking to update data based on these params: \x1b[0m")
+      console.log("oldVal: ", oldVal);
+      console.log("newVal: ", newVal);
+      console.log("tuple: ", req.params.tuple);
+      console.log("objkey: ", req.params.objkey);
+      console.log("obj: ", req.params.obj);
 
       if (isUserAdmin()) {  // Admin only route
         postDataWildcard(
