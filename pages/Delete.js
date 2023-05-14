@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import { withRouter } from 'next/router';
 
-import { Button } from '@material-ui/core/Card';
+//  import { Button } from '@material-ui/core/Card';
 import Card from '@material-ui/core/Card';
 
 import Headernav from "./menu";
@@ -99,9 +99,9 @@ class Delete extends Component {
         </h1>
 
         <section id="user-input">
-          <Button size="lg" onClick={this.handlesubmit} variant="danger" fontFamily="monospace" id="lookupDB">
+          <button data-size="lg" onClick={this.handlesubmit} data-variant="danger" data-fontFamily="monospace" id="lookupDB">
             delete from DB
-          </Button>
+          </button>
         </section>
         <Card>
           <section id="propsInfo">

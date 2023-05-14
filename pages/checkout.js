@@ -251,7 +251,7 @@ class Checkout extends Component {
               </span>
               <h6 id="tax">Tax</h6>
               <span id="taxInfo">
-                We apply the Washington state (city of Shoreline) sales tax rate of {this.state.salesTaxRate * 100}% per item
+                We apply the {process.env.NEXT_PUBLIC_NEXUS} sales tax rate of {this.state.salesTaxRate * 100}% per item
               </span>
               <h6 id="bill">Your bill</h6>
               <p id="statement">

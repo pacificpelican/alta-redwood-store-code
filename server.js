@@ -227,26 +227,17 @@ function decrementFromInventory(cartObject) {
 
 }
 
-function deleteDataWildcard(
-  db,
-  table,
-  tuple,
-  objval,
-  objkey = "description",
-  newVal = "__"
-) {
-  console.log(table, tuple);
-  let collectionName = table;
+async function deleteDataWildcard(db, collectionName, tuple) {
+  console.log(collectionName, tuple);
   console.log("to delete: " + tuple);
-  console.log("from " + table);
-  MongoClient.connect(mongoAddress, function (err, db) {
-    let collection = db.collection(`${collectionName}`);
-    console.log(collection);
-    collection.deleteOne({ locator: parseInt(tuple) }, function (err, result) {
-      console.log("Updated the document - deleted");
-    });
-  });
+  console.log("from " + collectionName);
+  const client = await MongoClient.connect(mongoAddress);
+  const collection = client.db(db).collection(collectionName);
+  const result = await collection.deleteOne({ locator: parseInt(tuple) });
+  console.log("Updated the document - deleted");
+  console.log(result);
   console.log("record removed (💣🤷)");
+  await client.close();
 }
 
 function mungeInventory(productsArray, inventoryArray) {  //  intersection algorithm: looking for items that exist as products and have nonzero inventory
@@ -697,17 +688,14 @@ app.prepare().then(() => {
     "/api/1/deletedata/db/:db/object/:obj/tuple/:tuple",
     require('connect-ensure-login').ensureLoggedIn(),
     (req, res) => {
-      console.log("running (simple) delete POST route");
+      console.log("running (simple) \x1b[91m delete POST route \x1b[0m");
 
       if (isUserAdmin()) {  // Admin only route
         deleteDataWildcard(
-          req.params.db,
+          mongoName,
           req.params.obj,
-          req.params.tuple,
-          null,
-          null,
-          null
-        ); //  the last 3 parameters can be null
+          req.params.tuple
+        );
       }
       else {
         // do nothing
