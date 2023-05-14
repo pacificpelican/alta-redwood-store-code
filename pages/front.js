@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Menu from "./menu";
 import Footer from "./footer";
 
-import Loader from "react-loader-spinner";
+//  import Loader from "react-loader-spinner";
+
+import { FidgetSpinner } from "react-loader-spinner"
 
 import Card from "./card";
 
@@ -144,11 +146,11 @@ function Front() {
   )
   if (items.length === 0) return (<>
     <Menu />
-    <div id="loading">
-     <main id="no-items">
-      <h1>no store items found</h1>
-    </main>
-    </div>
+      <div id="loading">
+        <main id="no-items">
+          <FidgetSpinner />
+        </main>
+      </div>
     <Footer />
   </>)
 }

@@ -45,7 +45,7 @@ function Aboutpage() {
     <div id="cartContainer">
       <Menu />
       <aside id="cart-info">
-        <h2 id="yourCart">About the <a href="https://altaredwood.com" id="ar">AltaRedwood.com</a> Store</h2>
+        <h2 id="yourCart">About the {process.env.NEXT_PUBLIC_WEBSITE_NAME} Store</h2>
         <h3 id="work">from <a href="https://altaredwood.work">altaredwood.work</a></h3>
         <div id="cartView">
           <p id="created">

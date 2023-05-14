@@ -7,7 +7,7 @@ import Link from "next/link";
 function menu() {
   return (
     <div id="parrotsMenuContainer">
-      <h1>AltaRedwood</h1>
+      <h1>{process.env.NEXT_PUBLIC_WEBSITE_NAME}</h1>
       <ul id="frontChoices">
         <li key="home"><Link
           href={{
