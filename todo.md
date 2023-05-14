@@ -50,3 +50,6 @@
 - √ totals should be rounded on /checkout so there aren't fractional cents (already gets done by transaction time, page should reflect that)
 - √ don't let people buy nothing for $0
 - √ mobile friendly/responsive
+
+- remove `delete last record` button in /admin, which is already marked as deprecated
+- claify behavior and updating of `hidden` property for products

@@ -33,7 +33,7 @@ function menu() {
           Cart</Link>
         </li>
         <li key="register"><a href="/register">Register</a></li>
-        <li key="profile"><Link
+        <li key="login"><Link
           href={{
             pathname: "/login"
           }}>

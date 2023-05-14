@@ -51,12 +51,13 @@ function Aboutpage() {
           <p id="created">
             I created the Alta Redwood online store as a place to offer cool items based on my photography.  As a resident of the Pacific Northwest, I hear from people all over the world about how special they find this region, and I totally agree.  This store is my way of offering pins, prints and other products that I like and I hope you will like too!
           </p>
-          <p>For now I can ship to U.S. addresses and am working on expanding my shipping area soon!</p>
+          <p id="theCode">I have released the code for this site, so people can launch their own store, and it is now <a href="https://github.com/pacificpelican/alta-redwood-store-code">available on GitHub!</a></p>
+          
           <aside id="avatar">
             <img src="./img/DM-BeaverLodge-2020.webp" id="dm-beaver-lodge" />
           </aside>
           <p id="caption">
-            store creator <a href="https://danmckeown.info">Dan McKeown</a> <span id="photo">(photo: Jess McKeown, Dec. 2020)</span>
+            store architect <a href="https://danmckeown.info">Dan McKeown</a> <span id="photo">(photo: Jess McKeown, Dec. 2020)</span>
           </p>
           <h4>e-commerce platform powered by <a href="https://pacificio.com">pacificIO technology</a></h4>
           <h4>secure checkout powered by the <a href="https://stripe.com">Stripe</a> API</h4>

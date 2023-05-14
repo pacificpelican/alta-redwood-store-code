@@ -514,24 +514,19 @@ app.prepare().then(() => {
 
     }); //  This route returns JSON info about the user who is logged in (userLogin)
 
-  server.get('/getorders',
-    require('connect-ensure-login').ensureLoggedIn(), (req, res) => {
-      MongoClient.connect(mongoAddress, function (err, db) {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-        console.log("looking up data for table " + `store_orders`);
-        db.collection('store_orders')
-          .find()
-          .toArray(function (err, result) {
-            
-            let finalResult = result.filter(word => word.username === userLogin);
-            console.log(finalResult);
-            res.send(finalResult);
-          });
-      });
-    }); //  This route returns JSON info about the user who is logged in (userLogin)
+  server.get('/getorders', require('connect-ensure-login').ensureLoggedIn(), async (req, res) => {
+    try {
+      const client = await MongoClient.connect(mongoAddress);
+      const collection = client.db().collection('store_orders');
+      const result = await collection.find({ username: userLogin }).toArray();
+      console.log(result);
+      res.send(result);
+      await client.close();
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  });
 
   // e.g.  http://localhost:3000/api/1/getdbdata/db/db/object/users_collection
   server.get('/api/1/getdbdata/db/:db/object/:obj', require('connect-ensure-login').ensureLoggedIn(), async (req, res) => {
@@ -820,7 +815,7 @@ app.prepare().then(() => {
       let { status } = await stripe.charges.create({
         amount: parseInt(transactionObjectJSON.total * 100),
         currency: "usd",
-        description: "AltaRedwood.com store charge",
+        description: process.env.NEXT_PUBLIC_BILLING_NAME + " store charge",
         source: req.body
       });
 
