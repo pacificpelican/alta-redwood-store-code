@@ -250,7 +250,7 @@ function deleteDataWildcard(
 }
 
 function mungeInventory(productsArray, inventoryArray) {  //  intersection algorithm: looking for items that exist as products and have nonzero inventory
-  console.log("about to munge inventory");
+  console.log("\x1b[36m about to munge inventory \x1b[0m");
   console.log("productsArray");
   console.log(productsArray);
   console.log("inventoryArray");
@@ -742,47 +742,28 @@ app.prepare().then(() => {
     }
   );
 
-  server.get("/api/1/getstore",
-    (req, res) => {
+  server.get('/api/1/getstore', async (req, res) => {
+    try {
+      const client = await MongoClient.connect(mongoAddress, {});
+      const db = client.db(mongoName); // Replace with your database name
+  
+      const productsPromise = db.collection('store_items').find().toArray();
+      const inventoryPromise = db.collection('store_inventory').find().toArray();
+  
+      const [products, inventory] = await Promise.all([productsPromise, inventoryPromise]);
+  
+      console.log('\x1b[32m products: \x1b[0m', products);
+      console.log('\x1b[33m inventory: \x1b[0m', inventory);
 
-      let products = [];
-      let inventory = [];
-
-      MongoClient.connect(mongoAddress, function (err, db) {
-        if (err) {
-          console.log(err);
-          throw err;
-        }
-
-        db.collection("store_items")
-          // get store items
-          .find()
-          .toArray(function (err, result) {
-            console.log(
-              "result of query for: " + "store_items" + " for getstore (v1) "
-            );
-            console.log(result);
-            products = result;
-          })
-
-        db.collection("store_inventory")
-          .find()
-          .toArray(function (err, result) {
-            console.log(
-              "result of query for: " + "store_inventory" + " for getstore (v1) "
-            );
-            console.log(result);
-            inventory = result;
-          });
-      });
-      setTimeout(function () {
-        let mungedInventory = mungeInventory(products, inventory);
-        console.log("munged inventory:");
-        console.log(mungedInventory);
-        res.send(mungedInventory);
-      }, 400);
-
-    });
+      const mungedInventory = mungeInventory(products, inventory);
+      console.log('munged inventory:', mungedInventory);
+  
+      res.send(mungedInventory);
+    } catch (err) {
+      console.error('Error:', err);
+      res.status(500).send('Internal server error');
+    }
+  });
 
   server.get("/api/1/getstoreitem/:item",
     (req, res) => {
