@@ -101,8 +101,8 @@ class Login extends Component {
 				<Footer />
 				<Head>
 					<title>
-						Alta Redwood Store - login
-        </title>
+						{process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - login
+        			</title>
 				</Head>
 				<style>
 					{`

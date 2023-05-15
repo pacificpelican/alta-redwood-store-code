@@ -103,7 +103,7 @@ class Register extends Component {
 				<Footer />
 				<Head>
 					<title>
-						Alta Redwood Store - register
+						{process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - register
 					</title>
 				</Head>
 				<style>{`

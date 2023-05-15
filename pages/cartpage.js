@@ -69,7 +69,7 @@ function Cartpage() {
       <Footer />
       <Head>
         <title>
-          Alta Redwood Store - cart page
+          {process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - cart page
         </title>
       </Head>
       <style>

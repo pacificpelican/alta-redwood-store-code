@@ -1,6 +1,6 @@
 {
   "name": "alta-redwood-store-code",
-  "version": "2.8.1",
+  "version": "2.9.0",
   "scripts": {
     "dev": "node --openssl-legacy-provider server.js",
     "build": "next build",
@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=12"
   },
-  "license": "UNLICENSED",
+  "license": "ISC",
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.13.12",
     "@material-ui/core": "^4.6.0",

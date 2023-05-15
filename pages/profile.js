@@ -127,7 +127,7 @@ class Profile extends Component {
         <Footer />
         <Head>
           <title>
-            Alta Redwood Store - user profile page
+            {process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - user profile page
           </title>
         </Head>
         <style>

@@ -362,7 +362,7 @@ class Checkout extends Component {
           <Footer />
           <Head>
             <title>
-              Alta Redwood Store - checkout page
+              {process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - checkout page
             </title>
             <script src="https://js.stripe.com/v3/"></script>
           </Head>

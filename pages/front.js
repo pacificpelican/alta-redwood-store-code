@@ -78,7 +78,7 @@ function Front() {
       <Footer />
       <Head>
         <title>
-          Alta Redwood Store
+          {process.env.NEXT_PUBLIC_WEBSITE_NAME} Store
         </title>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>

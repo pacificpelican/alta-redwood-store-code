@@ -57,7 +57,7 @@ function Aboutpage() {
             <img src="./img/DJM-2023-2.webp" id="dm-beaver-lodge" />
           </aside>
           <p id="caption">
-            store architect <a href="https://danmckeown.info">Dan McKeown</a> <span id="photo">(photo: Shoreline. WA, April 2023)</span>
+            store architect <a href="https://danmckeown.info">Dan McKeown</a> <span id="photo">(photo: Shoreline, WA, April 2023)</span>
           </p>
           <h4>e-commerce platform powered by <a href="https://pacificio.com">pacificIO technology</a></h4>
           <h4>secure checkout powered by the <a href="https://stripe.com">Stripe</a> API</h4>
@@ -68,7 +68,7 @@ function Aboutpage() {
       <Footer />
       <Head>
         <title>
-          Alta Redwood Store - about page
+          {process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - about page
         </title>
       </Head>
       <style>
