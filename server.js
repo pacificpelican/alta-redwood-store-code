@@ -156,64 +156,50 @@ async function postDataWildcard(db, collectionName, tuple, objval, objkey = "des
   await client.close();
 }
 
-function decrementFromInventory(cartObject) {
-  console.log("running decrementFromInventory");
-  let newCart = JSON.parse(cartObject);
-  
-  let newerCart = Object.keys(newCart).map(key => newCart[key]);
+async function decrementFromInventory(cartObject) {
+  console.log('\x1b[33m running decrementFromInventory \x1b[0m');
+  const newCart = JSON.parse(cartObject);
+  const newerCart = Object.keys(newCart).map((key) => newCart[key]);
 
-  let products = [];
-  let inventory = [];
+  try {
+    const client = await MongoClient.connect(mongoAddress);
+    const db = client.db(mongoName);
+    const storeItemsCollection = db.collection('store_items');
+    const storeInventoryCollection = db.collection('store_inventory');
 
-  MongoClient.connect(mongoAddress, function (err, db) {
-    if (err) {
-      console.log(err);
-      throw err;
+    const products = await storeItemsCollection.find().toArray();
+    const inventory = await storeInventoryCollection.find().toArray();
+
+    const mungedInventory = mungeInventory(products, inventory);
+    console.log('inventory has been munged');
+
+    for (const mo of newerCart) {
+      if (mo.quantity && mo.productID && Number(mo.quantity) > 0) {
+        console.log(`to decrement from inventory: ${Number(mo.quantity)} of #${mo.productID}`);
+
+        for (const mi of mungedInventory) {
+          if (Number(mi.productID) === Number(mo.productID)) {
+            const newAmount = Number(mi.totalInventory) - Number(mo.quantity);
+            console.log(`updating for ID ${Number(mo.productID)}, current val: ${mi.totalInventory}`);
+
+            const storeItemObject = {
+              itemLocator: mo.productID.toString(),
+              total: Number(newAmount).toString(),
+              created_at_time: Date.now(),
+              locator: Number(Date.now()) + Math.floor(Math.random() * locatorScale + 1)
+            };
+
+            await storeInventoryCollection.insertOne(storeItemObject);
+            console.log('item created (new inventory entry)');
+          }
+        }
+      }
     }
 
-    db.collection("store_items")
-      .find()
-      .toArray(function (err, result) {
-       
-        products = result;
-      })
-
-    db.collection("store_inventory")
-      .find()
-      .toArray(function (err, result) {
-        
-        inventory = result;
-      });
-  });
-  setTimeout(function () {
-    let mungedInventory = mungeInventory(products, inventory);
-    console.log("inventory has been munged");
-
-    newerCart.map((mo) => {
-      if ((mo.quantity) && (mo.productID) && (Number(mo.quantity) > 0)) {
-        console.log("to decrement from inventory: " + Number(mo.quantity) + " of #" + mo.productID);
-        mungedInventory.map((mi) => {
-          console.log('mi');
-          console.log(mi);
-          console.log(mi.productID + " " + mo.productID);
-          if (Number(mi.productID) === Number(mo.productID)) {
-            console.log("attempting to subtract " + mo.quantity + " from " + mi.totalInventory + " using Number() type conversion");
-            let newAmount = Number(Number(mi.totalInventory) - Number(mo.quantity));
-            console.log(newAmount);
-            console.log("updating for ID " + Number(mo.productID));
-            console.log("current val: " + mi.totalInventory);
-
-            const table = "store_inventory";
-            let storeItemObject = JSON.stringify(Object.assign({}, { itemLocator: mo.productID, total: Number(newAmount) }));
-
-            db.store.createNewItem(table, storeItemObject, function () { console.log("item created (new inventory entry)") });
-          }
-        })
-
-      }
-    })
-  }, 400);
-
+    client.close();
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 async function deleteDataWildcard(db, collectionName, tuple) {
