@@ -2,7 +2,7 @@
 
 # copyright 2019-2023 by [Daniel McKeown](https://danieljmckeown.com)
 
-# ALL RIGHTS RESERVED
+# Free Software License: [ISC](./LICENSE)
 
 - an e-commerce web site
 - runs on [NodeJS](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)

@@ -603,7 +603,7 @@ app.prepare().then(() => {
     require('connect-ensure-login').ensureLoggedIn(), //  should also be an admin though
     function (req, res) {
       if (isUserAdmin()) {
-        console.log("creating store-item");
+        console.log("\x1b[33m creating store-item \x1b[0m");
         //  console.log(req.params);
         db.store.createNewStoreItem(req.params.storeItemObject, function () { console.log("item created") });
         res.send({ "result": "success" });

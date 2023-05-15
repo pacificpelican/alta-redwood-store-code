@@ -54,10 +54,10 @@ function Aboutpage() {
           <p id="theCode">I have released the code for this site, so people can launch their own store, and it is now <a href="https://github.com/pacificpelican/alta-redwood-store-code">available on GitHub!</a></p>
           
           <aside id="avatar">
-            <img src="./img/DM-BeaverLodge-2020.webp" id="dm-beaver-lodge" />
+            <img src="./img/DJM-2023-2.webp" id="dm-beaver-lodge" />
           </aside>
           <p id="caption">
-            store architect <a href="https://danmckeown.info">Dan McKeown</a> <span id="photo">(photo: Jess McKeown, Dec. 2020)</span>
+            store architect <a href="https://danmckeown.info">Dan McKeown</a> <span id="photo">(photo: Shoreline. WA, April 2023)</span>
           </p>
           <h4>e-commerce platform powered by <a href="https://pacificio.com">pacificIO technology</a></h4>
           <h4>secure checkout powered by the <a href="https://stripe.com">Stripe</a> API</h4>
@@ -103,6 +103,10 @@ function Aboutpage() {
             width: calc(45vw + 10pt);
             font-family: var(--uiFonts, sans-serif);
           }
+          p#theCode {
+            font-family: var(--serifFonts, sans-serif);
+          }
+
           img#dm-beaver-lodge {
             width: calc(45vw + 10pt);
           }

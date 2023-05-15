@@ -52,4 +52,4 @@
 - √ mobile friendly/responsive
 
 - remove `delete last record` button in /admin, which is already marked as deprecated
-- claify behavior and updating of `hidden` property for products
+- ✅ claify behavior and updating of `hidden` property for products

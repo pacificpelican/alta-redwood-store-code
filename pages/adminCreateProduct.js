@@ -30,8 +30,9 @@ export default class AdminCreateProduct extends Component {
       });
   }
   handleSubmit = (form) => {
-    console.log(form);
-    let newdata = encodeURIComponent(JSON.stringify(form));
+    console.log("\x1b[36m form object for creating new product: \x1b[0m" + form);
+    let finalObject = Object.assign({"hidden" : "no"}, form);
+    let newdata = encodeURIComponent(JSON.stringify(finalObject));
     let newdataString = newdata.toString();
     this.sendFormToAPI_items(newdataString);
   }
