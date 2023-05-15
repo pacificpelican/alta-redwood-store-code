@@ -47,7 +47,7 @@ class Login extends Component {
 	sendFormToAPI_login(datastring) {
 		let dest = "/login";
 		console.log("fetch request: (POST) " + dest);
-		fetch(dest, { method: "post", body: datastring})
+		fetch(dest, { method: "post", body: datastring })
 			.then(function (response) {
 				if (response.ok) {
 					console.log("response ok");
@@ -77,7 +77,7 @@ class Login extends Component {
 								onChange={this.handleChangeUsername}
 								name="username"
 								type="string"
-								
+
 								required
 							/>
 						</div>
@@ -102,7 +102,7 @@ class Login extends Component {
 				<Head>
 					<title>
 						{process.env.NEXT_PUBLIC_WEBSITE_NAME} Store - login
-        			</title>
+					</title>
 				</Head>
 				<style>
 					{`

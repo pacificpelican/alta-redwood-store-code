@@ -42,7 +42,7 @@ class Card extends Component {
                 }
               }}
             > */}
-              <a>{this.props.spreadsheetdata.productTitle}</a>
+            <a>{this.props.spreadsheetdata.productTitle}</a>
             {/* </Link>{" "} */}
           </h2>
           <section className="price">${this.props.spreadsheetdata.price}</section>
@@ -97,7 +97,7 @@ class Card extends Component {
       return (
         <div id="cardContainer">
           <h2 className="prodTitle" key={this.props.spreadsheetdata.locator}>
-              <a>{this.props.spreadsheetdata.productTitle}</a>
+            <a>{this.props.spreadsheetdata.productTitle}</a>
           </h2>
           <section className="price">${this.props.spreadsheetdata.price}</section>
           <section className="description">

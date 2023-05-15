@@ -7,8 +7,8 @@ import Link from "next/link";
 let lastkey = null;
 
 function math_floor_random_number(scale) {
-	var newdigit = Math.floor((Math.random() * scale) + 1);
-	return newdigit;
+  var newdigit = Math.floor((Math.random() * scale) + 1);
+  return newdigit;
 }
 
 class ProductsDisplay extends Component {

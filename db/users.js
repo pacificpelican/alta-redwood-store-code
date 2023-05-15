@@ -91,7 +91,7 @@ exports.findByUsername = async function (username, cb) {
       }
     }
     return cb(null, null);
-  } 
+  }
   );
 
 

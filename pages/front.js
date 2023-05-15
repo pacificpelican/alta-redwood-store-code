@@ -146,11 +146,11 @@ function Front() {
   )
   if (items.length === 0) return (<>
     <Menu />
-      <div id="loading">
-        <main id="no-items">
-          <FidgetSpinner />
-        </main>
-      </div>
+    <div id="loading">
+      <main id="no-items">
+        <FidgetSpinner />
+      </main>
+    </div>
     <Footer />
   </>)
 }

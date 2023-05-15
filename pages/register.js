@@ -7,45 +7,45 @@ import { view } from "react-easy-state";
 import Head from 'next/head';
 
 class Register extends Component {
-	state = {username: '', password: '', email: ''};
+	state = { username: '', password: '', email: '' };
 
 	handleSubmit = (form) => {
-    console.log("form submitted");
+		console.log("form submitted");
 		console.log(form);
-		const registrationObject = Object.assign({}, {username: this.state.username, password: this.state.password, email: this.state.email});
+		const registrationObject = Object.assign({}, { username: this.state.username, password: this.state.password, email: this.state.email });
 		const encodedObject = encodeURIComponent(registrationObject);
-  }
+	}
 
 	handleChangeUsername = (event) => {
-    this.setState({ username: event.target.value });
+		this.setState({ username: event.target.value });
 	}
-	
+
 	handleChangePassword = (event) => {
-    this.setState({ password: event.target.value });
+		this.setState({ password: event.target.value });
 	}
 
 	handleChangeEmail = (event) => {
-    this.setState({ email: event.target.value });
+		this.setState({ email: event.target.value });
 	}
 
 	sendFormToAPI_reg(datastring) {
-    let dest = "/register/2/" + datastring.toString();
-    console.log("fetch request: (POST) " + dest);
-    fetch(dest, { method: "post" })
-      .then(function (response) {
-        if (response.ok) {
-          console.log("response ok");
+		let dest = "/register/2/" + datastring.toString();
+		console.log("fetch request: (POST) " + dest);
+		fetch(dest, { method: "post" })
+			.then(function (response) {
+				if (response.ok) {
+					console.log("response ok");
 
-          return response.json();
-        } else {
-          throw new Error(response.Error);
-        }
-      })
-      .then(function (myReturn) {
-        console.log(myReturn);
-      });
-  }
-	
+					return response.json();
+				} else {
+					throw new Error(response.Error);
+				}
+			})
+			.then(function (myReturn) {
+				console.log(myReturn);
+			});
+	}
+
 	render() {
 		return (
 			<div id="registerParrots">
@@ -57,39 +57,39 @@ class Register extends Component {
 
 				<div id="parrotsRegisterForm">
 					<form id="registerForm" action="/register" method="post">
-					<h2>Register for the Site</h2>
+						<h2>Register for the Site</h2>
 						<div>
 							<label>Username:</label>
 							<input
-                  value={this.state.username}
-                  onChange={this.handleChangeUsername}
-                  name="username"
-                  type="string"
-                  placeholder="user name"
-                  required
-                />
+								value={this.state.username}
+								onChange={this.handleChangeUsername}
+								name="username"
+								type="string"
+								placeholder="user name"
+								required
+							/>
 						</div>
 						<div>
 							<label>Password:</label>
 							<input
-                  value={this.state.password}
-                  onChange={this.handleChangePassword}
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  required
-                />
+								value={this.state.password}
+								onChange={this.handleChangePassword}
+								name="password"
+								type="password"
+								placeholder="password"
+								required
+							/>
 						</div>
 						<div>
 							<label>Email:</label>
 							<input
-                  value={this.state.email}
-                  onChange={this.handleChangeEmail}
-                  name="email"
-                  type="email"
-                  placeholder="email"
-                  required
-                />
+								value={this.state.email}
+								onChange={this.handleChangeEmail}
+								name="email"
+								type="email"
+								placeholder="email"
+								required
+							/>
 						</div>
 						<div>
 							<input type="submit" value="Submit" />

@@ -61,9 +61,9 @@ function Cartpage() {
             pathname: "/checkout"
           }}>
           <span id="goToCheckout"><Link
-          href={{
-            pathname: "/checkout"
-          }}>Check Out</Link></span></Link>
+            href={{
+              pathname: "/checkout"
+            }}>Check Out</Link></span></Link>
       </section>
       <Hummingbird />
       <Footer />

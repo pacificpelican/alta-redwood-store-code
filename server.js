@@ -338,18 +338,21 @@ passport.use(new Strategy(
   function (username, password, cb) {
     console.log("\x1b[34m running passport strategy \x1b[0m for " + username + " and " + password);
     db.users.findByUsername(username, function (err, user) {
-      if (err) { 
+      if (err) {
         console.log("error in passport strategy : " + err);
-        return cb(err); }
-      if (!user) { 
+        return cb(err);
+      }
+      if (!user) {
         console.log("no user found");
-        return cb(null, false); }
-      if (user.password !== getHash(password)) { 
+        return cb(null, false);
+      }
+      if (user.password !== getHash(password)) {
         console.error("passwords don't match");
-        return cb(null, false); }
+        return cb(null, false);
+      }
       else
         console.log("\x1b[34m passwords match \x1b[0m");
-        return cb(null, user);
+      return cb(null, user);
     });
   }));
 
@@ -448,7 +451,7 @@ app.prepare().then(() => {
         if (err) {
           console.log(err);
           msg = err
-          
+
           res.redirect('/error');
         }
         else if (!user) {
@@ -480,8 +483,8 @@ app.prepare().then(() => {
     }
   ) //  deprecated in favor of /profile and /getprofile
 
-  server.get('/logout', function(req, res, next) {
-    req.logout(function(err) {
+  server.get('/logout', function (req, res, next) {
+    req.logout(function (err) {
       if (err) { return next(err); }
       res.redirect('/');
     });
@@ -521,14 +524,14 @@ app.prepare().then(() => {
         const client = await MongoClient.connect(mongoAddress, {});
         const db = client.db(mongoName);
         const collection = db.collection(req.params.obj);
-  
+
         const result = await collection.find().toArray();
-  
+
         console.log(`Looking up data for table '${req.params.obj}' by ${userLogin}`);
         console.log(result);
-  
+
         res.json(result);
-  
+
         client.close();
       } catch (error) {
         console.error(error);
@@ -545,14 +548,14 @@ app.prepare().then(() => {
         const client = await MongoClient.connect(mongoAddress, {});
         const db = client.db(mongoName);
         const collection = db.collection(req.params.obj);
-  
+
         const result = await collection.findOne({ locator: parseInt(req.params.tuple) });
-  
+
         console.log(`Looking up data for tuple ${req.params.tuple} in '${req.params.db}' | '${req.params.obj}' collection by ${userLogin}`);
         console.log(result);
-  
+
         res.json(result);
-  
+
         client.close();
       } catch (error) {
         console.error(error);
@@ -569,12 +572,12 @@ app.prepare().then(() => {
         const client = await MongoClient.connect(mongoAddress, { useNewUrlParser: true, useUnifiedTopology: true });
         const db = client.db(mongoName);
         const collection = db.collection('store_items');
-  
+
         const result = await collection.find().limit(parseInt(req.params.limit)).toArray();
-  
+
         console.log(`Result of query for 'store_items' by ${userLogin}:`, result);
         res.json(result);
-  
+
         client.close();
       } catch (error) {
         console.error(error);
@@ -624,7 +627,7 @@ app.prepare().then(() => {
     function (req, res) {
       if (isUserAdmin()) {
         console.log("creating new DB entry");
-        
+
         db.store.createNewItem(req.params.table, req.params.storeItemObject, function () { console.log("item created") });
         res.send({ "result": "success" });
       }
@@ -642,7 +645,7 @@ app.prepare().then(() => {
     function (req, res) {
       if (isUserAdmin()) {   // Admin only route
         console.log("creating new DB entry");
-        
+
         db.store.createNewItem(req.params.table, req.params.storeItemObject, function () { console.log("item created") });
         res.send({ "result": "success" });
       }
@@ -682,7 +685,7 @@ app.prepare().then(() => {
 
       var someStr = decodeURIComponent(req.params.objprop);
       let oldVal = someStr.replace(/['"]+/g, '');
-      
+
       var someOtherStr = decodeURIComponent(req.params.newval);
       let newVal = someOtherStr.replace(/['"]+/g, '');
 
@@ -711,18 +714,18 @@ app.prepare().then(() => {
     try {
       const client = await MongoClient.connect(mongoAddress, {});
       const db = client.db(mongoName); // Replace with your database name
-  
+
       const productsPromise = db.collection('store_items').find().toArray();
       const inventoryPromise = db.collection('store_inventory').find().toArray();
-  
+
       const [products, inventory] = await Promise.all([productsPromise, inventoryPromise]);
-  
+
       console.log('\x1b[32m products: \x1b[0m', products);
       console.log('\x1b[33m inventory: \x1b[0m', inventory);
 
       const mungedInventory = mungeInventory(products, inventory);
       console.log('munged inventory:', mungedInventory);
-  
+
       res.send(mungedInventory);
     } catch (err) {
       console.error('Error:', err);

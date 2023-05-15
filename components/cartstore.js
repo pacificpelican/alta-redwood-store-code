@@ -2,7 +2,7 @@ import { store } from 'react-easy-state'
 
 function findObjectsWithProductID(objArray, productID) {
   let futureReturn = false;
-  objArray.map(function(iVal) {
+  objArray.map(function (iVal) {
     console.log("running findObjectsWithProductID; current row:");
     console.log(iVal);
     console.log("product ID via param " + productID + " |  product ID via map: " + iVal.productID);
@@ -44,9 +44,9 @@ const cartstore = store({
   tickUpQuantity(addedAmount, productID) {
     console.log("running tickUpQunatity with " + addedAmount + " more quantity for product " + productID);
     let retArray = [];
-    cartstore.cart.map(function(inVal) {
+    cartstore.cart.map(function (inVal) {
       if (Number(inVal.productID) === Number(productID)) {
-        retArray.push({productID: inVal.productID, quantity: Number(inVal.quantity) + Number(addedAmount), productName: inVal.productName, addedToCartDateTime: inVal.addedToCartDateTime, updatedDateTime: Date.now()})
+        retArray.push({ productID: inVal.productID, quantity: Number(inVal.quantity) + Number(addedAmount), productName: inVal.productName, addedToCartDateTime: inVal.addedToCartDateTime, updatedDateTime: Date.now() })
       }
       else {
         retArray.push(inVal);

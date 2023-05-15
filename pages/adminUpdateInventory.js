@@ -96,32 +96,32 @@ class AdminUpdateInventory extends Component {
               handleChange,
               handleBlur
             }) => (
-                <form id="itemsForm"
-                  onSubmit={handleSubmit}
-                >
-                  <input
-                    value={values.productID}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    name="productID"
-                    type="string"
-                    placeholder="ID of product"
-                    required
-                  />
-                  <input
-                    value={values.total}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    name="total"
-                    type="string"
-                    placeholder="total inventory"
-                    required
-                  />
-                  <button id="inventorySubmitButton">
-                    Submit
-                  </button>
-                </form>
-              )}
+              <form id="itemsForm"
+                onSubmit={handleSubmit}
+              >
+                <input
+                  value={values.productID}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="productID"
+                  type="string"
+                  placeholder="ID of product"
+                  required
+                />
+                <input
+                  value={values.total}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="total"
+                  type="string"
+                  placeholder="total inventory"
+                  required
+                />
+                <button id="inventorySubmitButton">
+                  Submit
+                </button>
+              </form>
+            )}
           </Formik>
         </section>
         <Footernav />

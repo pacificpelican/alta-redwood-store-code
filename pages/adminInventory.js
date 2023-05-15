@@ -15,14 +15,14 @@ class SpreadsheetCoreRecursiveClick extends Component {
     let dest = "/api/1/getdbdata/db/default/object/store_inventory";
     let that = this;
     fetch(dest, { method: "get" })
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
           throw new Error(response.Error);
         }
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ inventory: myReturn });
         let dest2 = "/api/1/getstoreitems/limit/50";
@@ -37,7 +37,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
               throw new Error(response.Error);
             }
           })
-          .then(function(myReturn) {
+          .then(function (myReturn) {
             console.log(myReturn);
             theny.setState({ items: myReturn });
           });
@@ -50,14 +50,14 @@ class SpreadsheetCoreRecursiveClick extends Component {
 
     console.log("fetch GET request: " + dest);
     fetch(dest, { method: "get" })
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           return response.json();
         } else {
           throw new Error(response.Error);
         }
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ items: myReturn });
       });
@@ -89,7 +89,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
             <h2>store inventory</h2>
           </span>
           <div id="inventoryData">
-            {mungedData.map(function(inVal) {
+            {mungedData.map(function (inVal) {
               console.log("iterating in adminInventory");
               console.log(inVal);
               return (

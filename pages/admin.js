@@ -17,7 +17,7 @@ export default class Admin extends Component {
     supplier: '',
     description: ''
   }
-  state = {items: []}
+  state = { items: [] }
   getDataFromAPI_items() {
     let dest = "/api/1/getstoreitems/limit/50"
     const that = this;
@@ -35,7 +35,7 @@ export default class Admin extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-        that.setState({items: myReturn});
+        that.setState({ items: myReturn });
       });
   }
   componentDidMount() {
@@ -61,7 +61,7 @@ export default class Admin extends Component {
         </section>
         <Orders />
         <style>
-        {`
+          {`
           :root {
             --uiFonts: "Ubuntu Mono", "Inconsolata", "Anonymous Pro", "Hack", Menlo,
               monospace;

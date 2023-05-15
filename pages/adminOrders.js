@@ -125,7 +125,7 @@ class AdminOrders extends Component {
                     </thead>
                     <tbody>
                       <tr>
-                        
+
                         <td>
                           {mv.shipping.name}
                         </td>
@@ -155,7 +155,7 @@ class AdminOrders extends Component {
                     {objectToArray(mv.cart).map((theV) => {
                       console.log("theV");
                       console.log(theV);
-                      return(
+                      return (
                         <table className="OneOrderInfo">
                           <thead>
                             <tr>
@@ -194,19 +194,19 @@ class AdminOrders extends Component {
                         <tr>
                           <td>
                             subtotal
-                        </td>
+                          </td>
                           <td>
                             tax
-                        </td>
+                          </td>
                           <td>
                             shipping
-                        </td>
+                          </td>
                           <td>
                             total
-                        </td>
+                          </td>
                           <td>
                             COUPON
-                        </td>
+                          </td>
 
                         </tr>
                       </thead>
@@ -239,7 +239,7 @@ class AdminOrders extends Component {
                   Shipped? <span className="isItShippedTho">{mv.shipped}</span>
                 </p>
                 {"  "}
-                { mv.shipped=='no' ? <button id="shipped" onClick={this.markAsShipped.bind(null, mv.locator)}>mark as shipped</button> : <span></span>}
+                {mv.shipped == 'no' ? <button id="shipped" onClick={this.markAsShipped.bind(null, mv.locator)}>mark as shipped</button> : <span></span>}
                 <hr className="adminOrdersBr" />
               </React.Fragment>
             )

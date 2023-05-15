@@ -7,7 +7,7 @@ const objectToArray = require('object-to-array');
 import moment from "moment";
 
 class AdminOrders extends Component {
-  
+
   table = null;
   state = { products: [] }
 

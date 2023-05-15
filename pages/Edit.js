@@ -102,7 +102,7 @@ class Edit extends Component {
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
-        
+
         <Headernav />
 
         <button id="backButton" href="#" onClick={this.goBack}>

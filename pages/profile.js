@@ -30,12 +30,12 @@ class Profile extends Component {
         if (response.ok) {
           console.log(typeof response);
           console.log(response);
-          if (typeof response !=='object') {
+          if (typeof response !== 'object') {
             console.log("RESPONSE FROM /getprofile is NOT AN OBJECT");
           }
           if (response.redirected) {
             console.log("no user profile info, not logged in")
-            return [{username: "NOT LOGGED IN"}];
+            return [{ username: "NOT LOGGED IN" }];
           }
           else {
             return response.json();
@@ -56,7 +56,7 @@ class Profile extends Component {
         if (response.ok) {
           if (response.redirected) {
             console.log("no user profile info, not logged in")
-            return [{transaction: {total: 0 }, cart: { productID: 0, quantity: 0, productName: "none", addedToCartDateTime: 1576729292458 }}];
+            return [{ transaction: { total: 0 }, cart: { productID: 0, quantity: 0, productName: "none", addedToCartDateTime: 1576729292458 } }];
           }
           else {
             return response.json();
@@ -117,7 +117,7 @@ class Profile extends Component {
         <hr className="spacer" />
         {/* <Trike /> */}
         <aside id="userAvatar">
-          <Avatar 
+          <Avatar
             size={50}
             name={this.state.username}
             variant="sunset"

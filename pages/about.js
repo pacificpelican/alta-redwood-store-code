@@ -52,7 +52,7 @@ function Aboutpage() {
             I created the Alta Redwood online store as a place to offer cool items based on my photography.  As a resident of the Pacific Northwest, I hear from people all over the world about how special they find this region, and I totally agree.  This store is my way of offering pins, prints and other products that I like and I hope you will like too!
           </p>
           <p id="theCode">I have released the code for this site, so people can launch their own store, and it is now <a href="https://github.com/pacificpelican/alta-redwood-store-code">available on GitHub!</a></p>
-          
+
           <aside id="avatar">
             <img src="./img/DJM-2023-2.webp" id="dm-beaver-lodge" />
           </aside>
@@ -63,7 +63,7 @@ function Aboutpage() {
           <h4>secure checkout powered by the <a href="https://stripe.com">Stripe</a> API</h4>
         </div>
       </aside>
-     
+
       {/* <Hummingbird /> */}
       <Footer />
       <Head>
