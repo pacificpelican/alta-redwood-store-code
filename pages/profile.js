@@ -66,7 +66,7 @@ class Profile extends Component {
         return response.blob();
       })
       .then(function (myReturn) {
-        that.setState({ orders: myReturn });
+        that.setState({ orders: myReturn.reverse() });
       });
   }
 
@@ -89,7 +89,7 @@ class Profile extends Component {
         <hr className="spacer" />
         <div>
           <h4>Your orders</h4>
-          {this.state.orders.reverse().map((oo) => {
+          {this.state.orders.map((oo) => {
             console.log(oo.cart);
             let truecart = Object.values(oo.cart);
             console.log(truecart);

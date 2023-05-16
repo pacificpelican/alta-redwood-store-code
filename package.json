@@ -1,6 +1,6 @@
 {
   "name": "alta-redwood-store-code",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "scripts": {
     "dev": "node --openssl-legacy-provider server.js",
     "build": "next build",
