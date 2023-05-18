@@ -11,7 +11,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-var nodemailer = require('nodemailer');
+//  var nodemailer = require('nodemailer');
 
 let mongoUrl;
 let locatorScale = parseInt(1000000000000);
@@ -22,19 +22,34 @@ let keySecret;
 
 let mongoName;
 
+let mailgunAddress;
+
+let mailgunAPIkey;
+
 if (process.env.NODE_ENV !== "production") {
   mongoUrl = "mongodb://localhost:27017/"; //  dev database server
   mongoName = process.env.DEV_MONGO;
   keySecret = process.env.TEST_SECRET_KEY;
 
+  mailgunAPIkey = process.env.MAILGUN_TEST_API_KEY;
+  mailgunAddress = process.env.MAILGUN_TEST_ADDRESS;
+
 } else {
   mongoUrl = process.env.MONGODB_URL; //  production database server
   mongoName = process.env.MONGO_NAME || '';
   keySecret = process.env.SECRET_KEY;
+
+  mailgunAPIkey = process.env.MAILGUN_API_KEY;
+  mailgunAddress = process.env.MAILGUN_ADDRESS;
 }
 
 console.log('\x1b[33m Welcome to the Alta Redwood store app! \x1b[0m');
 console.log('\x1b[33m https://github.com/pacificpelican/alta-redwood-store-code/ \x1b[0m');
+
+const mailgun = require('mailgun-js')({
+  apiKey: mailgunAPIkey,
+  domain: mailgunAddress
+});
 
 const crypto = require('crypto');
 
@@ -95,7 +110,7 @@ async function createNewOrder(stripeToken, cartObject, shipObject, transactionOb
 
       let sendEmailTo = user.email;
       console.log("ORDER IN PROGRESS: planning to send email to " + sendEmailTo);
-      let emailCopy = `Hello ${userLogin}!  Thank you for making a purchase at the Alta Redwood online store.  You can log in to your account at https://altaredwood.com and your profile page will have more information about the order, and as soon as it is sent out you will be able to see the shipping status updated.  Please reply to this email if you have any feedback.  Thanks for your business!`
+      let emailCopy = `Hello ${userLogin}!  Thank you for making a purchase at the ${process.env.NEXT_PUBLIC_WEBSITE_NAME} online store.  You can log in to your account at ${process.env.NEXT_PUBLIC_WEBSITE_URL} and your profile page will have more information about the order, and as soon as it is sent out you will be able to see the shipping status updated.  Please reply to this email: ${process.env.NEXT_PUBLIC_SUPPORT_EMAIL} if you have any feedback.  Thanks for your business!`
       sendEmail(sendEmailTo, emailCopy);
     });
   }
@@ -103,40 +118,58 @@ async function createNewOrder(stripeToken, cartObject, shipObject, transactionOb
   return dbObject;
 }
 
-let gMailCredentials = {};
 
-if ((typeof process.env.GMAILLOGIN === "undefined") || (typeof process.env.GMAILPW === "undefined")) {
-  //  no email credentials available to send with
-}
-else {
-  gMailCredentials = Object.assign({}, { username: process.env.GMAILLOGIN, password: process.env.GMAILPW });
-}
+// let gMailCredentials = {};
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: gMailCredentials.username,
-    pass: gMailCredentials.password
-  }
-})
+// if ((typeof process.env.GMAILLOGIN === "undefined") || (typeof process.env.GMAILPW === "undefined")) {
+//   //  no email credentials available to send with
+// }
+// else {
+//   gMailCredentials = Object.assign({}, { username: process.env.GMAILLOGIN, password: process.env.GMAILPW });
+// }
+
+// var transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: gMailCredentials.username,
+//     pass: gMailCredentials.password
+//   }
+// })
 
 function sendEmail(recipient, bodyText, subjectText = 'store update') {
-  let mailOptions = {
-    from: process.env.NEXT_PUBLIC_BILLING_NAME + ' <' + process.env.GMAILLOGIN + '>',
+  // let mailOptions = {
+  //   from: process.env.NEXT_PUBLIC_BILLING_NAME + ' <' + process.env.GMAILLOGIN + '>',
+  //   to: recipient,
+  //   subject: subjectText,
+  //   text: bodyText
+  // }
+  let dataForMailgun = {
+    from: process.env.NEXT_PUBLIC_BILLING_NAME + ' <postmaster@sandbox9d3b96637c3340cfbfcb08ab8336a8e3.mailgun.org>',
     to: recipient,
     subject: subjectText,
     text: bodyText
-  }
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log("ERROR SENDING EMAIL");
-      console.log(error);
+  };
+  
+  mailgun.messages().send(dataForMailgun, (error, body) => {
+    if(error) {
+      console.error('Error sending email');
+      console.error(error);
+    } else {
+      console.log(body);
+      console.log('Email sent successfully');
     }
-    else {
-      console.log('Email sent: ' + info.response);
-      console.log(info);
-    }
-  })
+  });
+  
+  // transporter.sendMail(mailOptions, function (error, info) {
+  //   if (error) {
+  //     console.log("ERROR SENDING EMAIL");
+  //     console.log(error);
+  //   }
+  //   else {
+  //     console.log('Email sent: ' + info.response);
+  //     console.log(info);
+  //   }
+  // })
 }
 
 async function postDataWildcard(db, collectionName, tuple, objval, objkey = "description", newVal = "__") {
