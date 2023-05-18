@@ -26,6 +26,8 @@ let mailgunAddress;
 
 let mailgunAPIkey;
 
+let fromEmail;
+
 if (process.env.NODE_ENV !== "production") {
   mongoUrl = "mongodb://localhost:27017/"; //  dev database server
   mongoName = process.env.DEV_MONGO;
@@ -33,6 +35,7 @@ if (process.env.NODE_ENV !== "production") {
 
   mailgunAPIkey = process.env.MAILGUN_TEST_API_KEY;
   mailgunAddress = process.env.MAILGUN_TEST_ADDRESS;
+  fromEmail = process.env.MAILGUN_TEST_FROM_EMAIL;
 
 } else {
   mongoUrl = process.env.MONGODB_URL; //  production database server
@@ -41,6 +44,7 @@ if (process.env.NODE_ENV !== "production") {
 
   mailgunAPIkey = process.env.MAILGUN_API_KEY;
   mailgunAddress = process.env.MAILGUN_ADDRESS;
+  fromEmail = process.env.MAILGUN_FROM_EMAIL;
 }
 
 console.log('\x1b[33m Welcome to the Alta Redwood store app! \x1b[0m');
@@ -118,33 +122,10 @@ async function createNewOrder(stripeToken, cartObject, shipObject, transactionOb
   return dbObject;
 }
 
-
-// let gMailCredentials = {};
-
-// if ((typeof process.env.GMAILLOGIN === "undefined") || (typeof process.env.GMAILPW === "undefined")) {
-//   //  no email credentials available to send with
-// }
-// else {
-//   gMailCredentials = Object.assign({}, { username: process.env.GMAILLOGIN, password: process.env.GMAILPW });
-// }
-
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: gMailCredentials.username,
-//     pass: gMailCredentials.password
-//   }
-// })
-
 function sendEmail(recipient, bodyText, subjectText = 'store update') {
-  // let mailOptions = {
-  //   from: process.env.NEXT_PUBLIC_BILLING_NAME + ' <' + process.env.GMAILLOGIN + '>',
-  //   to: recipient,
-  //   subject: subjectText,
-  //   text: bodyText
-  // }
+
   let dataForMailgun = {
-    from: process.env.NEXT_PUBLIC_BILLING_NAME + ' <postmaster@sandbox9d3b96637c3340cfbfcb08ab8336a8e3.mailgun.org>',
+    from: process.env.NEXT_PUBLIC_BILLING_NAME + ' <' + fromEmail + '>',
     to: recipient,
     subject: subjectText,
     text: bodyText
@@ -160,16 +141,6 @@ function sendEmail(recipient, bodyText, subjectText = 'store update') {
     }
   });
   
-  // transporter.sendMail(mailOptions, function (error, info) {
-  //   if (error) {
-  //     console.log("ERROR SENDING EMAIL");
-  //     console.log(error);
-  //   }
-  //   else {
-  //     console.log('Email sent: ' + info.response);
-  //     console.log(info);
-  //   }
-  // })
 }
 
 async function postDataWildcard(db, collectionName, tuple, objval, objkey = "description", newVal = "__") {
